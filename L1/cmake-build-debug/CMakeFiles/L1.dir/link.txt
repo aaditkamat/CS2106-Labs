@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/L1.dir/ex1/ex1.c.o CMakeFiles/L1.dir/ex2/ex2.c.o CMakeFiles/L1.dir/ex3/ex3.c.o  -o L1 

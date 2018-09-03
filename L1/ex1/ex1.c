@@ -1,8 +1,8 @@
 /*************************************
 * Lab 1 Exercise 1
-* Name:
-* Matric No:
-* Lab Group:
+* Name: Aadit Rahul Kamat
+* Matric No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -50,15 +50,12 @@ int main()
 //Function Implementations
 node* addToHead(node* head, int newData)
 {
-    node new;
-    new.data = newData;
-    if (head == NULL) {
-        head = &new;
+    node* newNode = malloc(sizeof(node));
+    newNode -> data = newData;
+    if (head != NULL){
+        newNode -> next = head;
     }
-    else {
-        new.next = head;
-        head = &new;
-    }
+    head = newNode;
     return head;
 }
 
@@ -79,5 +76,9 @@ void printList(node* head)
 
 void destroyList(node* head)
 {
-    //Fill in your code here
+    while (head != NULL) {
+        node* next = head -> next;
+        free(head);
+        head = next;
+    }
 }

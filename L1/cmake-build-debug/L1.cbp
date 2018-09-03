@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="L1"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="L1">
+				<Option output="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/L1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/9.1.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 L1"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="L1/fast">
+				<Option output="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/L1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/9.1.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 L1/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/aaditkamat/Desktop/CS2106/Lab\ Handouts/L1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/Lab1.pdf">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/CMakeCache.txt">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/L1.cbp">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/Makefile">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/cmake-build-debug/cmake_install.cmake">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex1/ex1.c">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex1/test1.in">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex1/test1.out">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex1/test2.in">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex1/test2.out">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex2/ex2.c">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex2/test1.in">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex2/test1.out">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex2/test2.in">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex2/test2.out">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex3/ex3.c">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex3/test1.in">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/ex3/test1.out">
+			<Option target="L1"/>
+		</Unit>
+		<Unit filename="/Users/aaditkamat/Desktop/CS2106/Lab Handouts/L1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
