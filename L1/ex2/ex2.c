@@ -39,7 +39,7 @@ int main()
 
     }
 
-    printf("My List: \n");
+    printf("My List:\n");
     printList(myList);
     
     destroyList(myList);
