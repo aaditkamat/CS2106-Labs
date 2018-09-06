@@ -1,8 +1,8 @@
 /*************************************
 * Lab 1 Exercise 3
-* Name     :
-* Matric No:
-* Lab Group:
+* Name     : Aadit Kamat
+* Matric No: A0164761B  
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -12,40 +12,57 @@ typedef int (*arithFuncPtr)(int, int);
 
 
 //Function Prototypes
-int add(int x, int y);
-
+int lumos(int x, int y);
+int alohomora(int x, int y);
+int expelliarmus(int x, int y);
+int sonorus(int x, int y);
+typedef struct SPELL {
+    char name[13];
+    arithFuncPtr func;
+} spell;
 
 int main()
 {
     int a, b, optype, res;
+    spell types[4] = {{"lumos", lumos}, {"alohomora", alohomora}, {"expelliarmus", expelliarmus}, {"sonorus", sonorus}};
 
-    //The code below is to show the usage of a function pointer only
-    //You can remove/comment them off 
-
-    //arithFuncPtr is a function pointer datatype
-    //   - it points to afunction that takes (int, int) as parameter
-    //   - and returns int as return result
-
-    arithFuncPtr ptr;
-
-    //ptr points to the function add
-    ptr = add;
-
-    scanf("%i %i", &a, &b);
-
-    //Defereference a function pointer === call the function
-    //if you take (*ptr) as some function f
-    // then below is the same as
-    //   res = f(a, b);
-
-    res = (*ptr)(a, b);
-
-    printf("%i\n", res);
+    while (scanf("%i %i %i", &optype, &a, &b) == 3) {
+        arithFuncPtr func = types[optype - 1].func;
+        res = (*func)(a, b);
+        printf("%s %i\n", types[optype - 1].name, res);
+    }
    
     return 0;
 }
 
-int add(int x, int y)
+int alohomora(int x, int y)
 {
-    return x+y;
+    if (x == 0)
+        return y;
+    if (y == 0)
+        return x;
+    return alohomora(y, x % y);
+}
+
+int sonorus(int x, int y) {
+    int result = 1;
+    for (int i = 1; i <= y; i++) {
+        result *= x;
+    }
+    return result;
+}
+
+int lumos(int x, int y) {
+    int result = 0;
+    for (int i = x; i <= y; i++) {
+        result += i;
+    }
+    return result;
+}
+
+int expelliarmus(int x, int y) {
+    while (x % y == 0) {
+        x /= y;
+    }
+    return x;
 }
