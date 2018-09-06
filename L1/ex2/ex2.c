@@ -1,8 +1,8 @@
 /*************************************
-* Lab 1 Exercise 1
-* Name:
-* Matric No:
-* Lab Group:
+* Lab 1 Exercise 2
+* Name: Aadit Kamat 
+* Matric No: A0164761B
+* Lab Group:02
 *************************************/
 
 #include <stdio.h>
@@ -19,6 +19,7 @@ typedef struct NODE{
 node* insertAt(node*, int, int, int);
 
 void printList(node*);
+int lengthList(node*);
 void destroyList(node*);
 
 
@@ -26,12 +27,19 @@ void destroyList(node*);
 int main()
 {
     node* myList = NULL;    //Empty List
-    int position, input;
+    int position, input, copies, length;
 
-    //Fill in code for input and processing
+    while (scanf("%i %i %i", &position, &input, &copies) == 3) {
+        length = lengthList(myList);
+        if (position > length) {
+            position = length;
+        }
+        myList = insertAt(myList, position, copies, input);
+        length = lengthList(myList);
 
-    //Output code coded for you
-    printf("My List:\n");
+    }
+
+    printf("My List: \n");
     printList(myList);
     
     destroyList(myList);
@@ -44,11 +52,55 @@ int main()
     return 0;
 }
 
+int lengthList(node * head) {
+    node* ptr = head;
+    int ctr = 0;
+    while (ptr != NULL) {
+        ptr = ptr -> next;
+        ctr++;
+    }
+    return ctr;
+}
+node* createNewNode(node* nextNode, int newValue) {
+    node* ptr = malloc(sizeof(node));
+    ptr -> data = newValue;
+    ptr -> next = nextNode;
+    return ptr;
+}
+
+node* insertBeforeHead(node* head, int newValue) {
+    return createNewNode(head, newValue);
+}
+
+node* insertInBetween(node* before, node* after, int newValue) {
+    before -> next = createNewNode(after, newValue);
+    return before;
+}
+
 //Actual Function Implementations
 node* insertAt(node* head, int position, int copies, int newValue)
 {
-    //Fill in your code here
-    return NULL;    //change this!
+    if (head == NULL) {
+        head = createNewNode(NULL, newValue);
+        for(int i = 1; i < copies; i++) {
+           head = insertBeforeHead(head, newValue);
+        }
+    }
+    else if (position == 0) {
+        for (int i = 0; i < copies; i++) {
+            head = insertBeforeHead(head, newValue);
+        }
+    }
+    else {
+        node* temp = head;
+        for (int i = 1; i < position; i++) {
+            temp = temp -> next;
+        }
+        for (int j = 0; j < copies; j++) {
+            temp = insertInBetween(temp, temp ->next, newValue);
+        }
+    }
+    return head;
 }
  
 void printList(node* head)
@@ -57,7 +109,6 @@ void printList(node* head)
 {
     //This function has been implemented for you
     node* ptr = head;
-
     while (ptr != NULL)  {    //or you can write while(ptr)
         printf("%i ", ptr->data);
         ptr = ptr->next;
@@ -67,7 +118,9 @@ void printList(node* head)
 
 void destroyList(node* head)
 {
-     
-    //Fill in your code here
-    //You can use the same implementation as in exercise 1
+     while (head != NULL) {
+        node* next = head -> next;
+        free(head);
+        head = next;
+    }
 }
