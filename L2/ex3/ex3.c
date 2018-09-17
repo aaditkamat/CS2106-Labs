@@ -1,42 +1,55 @@
 /*************************************
-* Lab 2 Exercise 3
-* Name:
-* Student No:
-* Lab Group:
+* Lab 2 Exercise 2
+* Name: Aadit Rahul Kamat   
+* Student No: A0164761B
+* Lab Group: 2
 *************************************
 Warning: Make sure your code works on
 lab machine (Linux on x86)
 *************************************/
 
 #include <stdio.h>
+#include<stdlib.h>
+#include <string.h>     //For string comparison, string copy
 #include <fcntl.h>      //For stat()
 #include <sys/types.h>   
 #include <sys/stat.h>
-#include <sys/wait.h>   //for waitpid()
-#include <unistd.h>     //for fork(), wait()
-#include <string.h>     //for string comparison etc
-#include <stdlib.h>     //for malloc()
+#include <unistd.h>     //for fork()
+#include <sys/wait.h>   //for wait()
+
+struct stat var;
 
 int main()
 {
-
-    char userInput[120];
+    char path[20];
+    int progStatus, pid, status, result;
 
     //read user input
     printf("YWIMC > ");
+    scanf("%s", path );
 
-    //hint: you probably want to find a better way to read the inputs
-    //hint 2: the alternative can be found in one of the sample programs
-  
-    scanf("%s", userInput);
-
-    while ( strcmp(userInput, "quit") != 0 ){
-
-        printf("YWIMC > ");
-        scanf("%s", userInput);
+    while (strcmp( path, "quit") != 0){ 
+        // Check whether file exist
+        // In real interpreter, a lot more checks are needed
+        // E.g. check for file type, execution right etc
+        progStatus = stat(path, &var);
+        if (progStatus == 0) {
+            result = fork();
+            if (result != 0) {
+                waitpid(result, NULL, 0);
+            }
+            else {
+                execl(path, path, NULL);
+                exit(0);
+            }
+        }
+        else {
+            printf("%s not found\n", path);
+        }
+        printf("YWIMC >");
+        scanf("%s", path);
     }
     
     printf("Goodbye!\n");
     return 0;
-
 }

@@ -39,7 +39,7 @@ int main()
                 waitpid(result, NULL, 0);
             }
             else {
-                execl(path, NULL);
+                execl(path, path, NULL);
                 exit(0);
             }
         }
