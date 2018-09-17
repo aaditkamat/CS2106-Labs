@@ -15,6 +15,8 @@ lab machine (Linux on x86)
 #include <unistd.h>     //for fork()
 #include <sys/wait.h>   //for wait()
 
+//int num = 1;
+
 int main()
 {
     int nChild, result, status, pid;
@@ -26,19 +28,16 @@ int main()
     for (int i = 0; i < nChild; i++) {
         result = fork();
         if (result == 0) {
-            children[i] = getpid();
-             printf("Child %i[%i]: Hello!\n", i + 1, getpid());
-            printf("Parent: Child %i[%i] done.\n", i + 1, getpid());
+            printf("Child %i[%i]: Hello!\n", i + 1, getpid());
             exit(i + 1);
+        } else {
+            children[i] = result;
         }
     }
-
-    sleep(2);
-
     for (int i = 0; i < nChild; i++) {
-        pid = waitpid(result, &status, WEXITSTATUS(result));
+        pid = waitpid(children[i], NULL, 0);
+        printf("Parent: Child %i[%i] done.\n", i + 1, pid);
     }
-    
     printf("Parent: Exiting\n");
 
     return 0;
