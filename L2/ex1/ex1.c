@@ -29,7 +29,7 @@ int main()
         result = fork();
         if (result == 0) {
             printf("Child %i[%i]: Hello!\n", i + 1, getpid());
-            exit(i + 1);
+            return i + 1;
         } else {
             children[i] = result;
         }
