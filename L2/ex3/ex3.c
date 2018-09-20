@@ -19,84 +19,88 @@ lab machine (Linux on x86)
 
 struct stat var;
 
-typedef struct {
-    char* path;
-    char* argv[5];
-} command_type;
-
-char* readInput() {
-   //hint: you probably want to find a better way to read the inputs
-   //hint 2: the alternative can be found in one of the sample programs
-   char userInput[120];
-   char *result = malloc(120);
+void readInput(char* userInput) {
    printf("YWIMC > ");
    fgets(userInput, 120, stdin);
-   strcpy(result, userInput);
-   return result;
 }
 
-command_type* getCommand(char* result) {
-   command_type* command = malloc(sizeof command);
-   char* token = strtok(result, " ");
-   command -> path = strtok(token, "\n");
-   return command;
+void getArgs(char* userInput, char* argv[]) {
+   int strCtr = 0, argCtr = 0;
+   char path[120];
+   for (int i = 0; i < strlen(userInput); i++) {
+       if (*(userInput + i) != ' ' && *(userInput + i) != '\n') {
+           path[strCtr++] = *(userInput + i);
+       }
+       else {
+           path[strCtr] = '\0';
+           strcpy(argv[argCtr++], path);
+           char path[120];
+           strCtr = 0;
+       }
+   }
 }
 
-command_type* getArgs(command_type* command, char* userInput) {
-    printf("User Input is: %s\n", userInput);
-    char* token = strtok(userInput, " ");
-    int argCtr = 0;
-    while (argCtr < 5) {
-        if (token == NULL)
-            break;
-        printf("Token %i: %s", argCtr + 1, token);
-        command -> argv[argCtr] = malloc(120);
-        strcpy(command -> argv[argCtr++], token);
-        token = strtok(NULL, " ");
+void parseInput(char* userInput, char* argv[]) {
+    readInput(userInput);
+    getArgs(userInput, argv);
+}
+
+int checkProcessBackground(char* argv[]) {
+    for (int i = 0; i < 6; i++) {
+        if (strlen(argv[i]) >= 1 && strcmp(argv[i], "&") == 0) {
+            return 1;
+        }
     }
-    for (int i = argCtr; i < 5; i++) {
-        command -> argv[i] = NULL;
-    }
-    return command;
+    return 0;
 }
 
-command_type* parseInput() {
-    command_type* command = malloc(sizeof command);
-    char* result;
-    char store[120];
-    result = readInput();
-    strcpy(store, result);
-    command = getCommand(result);
-    command = getArgs(command, store);
-    return command;
+void executeProcess(char* store[6]) {
+    for (int i = 0; i < 5; i++) {
+        printf("%i - %s\n", i, store[i]);
+    }
+    char* temp[5];
+    for (int i = 0; i < 5; i++) {
+        temp[i] = malloc(120);
+        printf("LENGTH: %lu\n", strlen(store[i]));
+        if (strlen(store[i]) >= 1) {
+            strcpy(temp[i], store[i]);
+            printf("%i - %s\n", i, temp[i]);
+        }
+        else {
+            temp[i] = NULL;
+        }
+    }
+    char* const argv[5] = {temp[0], temp[1], temp[2], temp[3], temp[4]};
+    execv(argv[0], argv);
 }
+
 
 int main()
 { 
-   command_type* command;
-   int progStatus, result;
-
-   command = parseInput();
-   while (strcmp(command -> path, "quit") != 0 ){
-        progStatus = stat(command -> path, &var);
+   int progStatus, result, status;
+   char* userInput = malloc(120);
+   char* argv[6];
+   for (int i = 0; i < 6; i++) {
+       argv[i] = malloc(120);
+   }
+   parseInput(userInput, argv);
+   while (strcmp(argv[0], "quit") != 0 ){
+        progStatus = stat(argv[0], &var);
+        printf("%i\n", progStatus);
         if (progStatus == 0) {
             result = fork();
             if (result != 0) {
-               printf("Child %d in background \n", result);
-               waitpid(result, NULL, 0);
+                waitpid(result, NULL, 0);
             } else {
-                printf("Command path: %s", command -> path);
-                char* const argv[4] = {command -> argv[0], command -> argv[1], command -> argv[2], command -> argv[3]};
-                execv(command -> path, argv);
-                exit(0);
+                printf("%i\n", result);
+                executeProcess(argv);
             }
         } 
         else {
-            printf("%s not found\n", command -> path);
+            printf("%s not found\n", argv[0]);
         }
-        command = parseInput();
+        parseInput(userInput, argv);
     }
     printf("Goodbye!\n");
     return 0;
-
 }
