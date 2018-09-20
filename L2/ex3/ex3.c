@@ -74,15 +74,17 @@ void executeProcess(char* store[6]) {
     execv(argv[0], argv);
 }
 
-
+void createArgs(char* argv[]) {
+    for (int i = 0; i < 6; i++) {
+        argv[i] = malloc(120);
+    }
+}
 int main()
 { 
    int progStatus, result, status;
    char* userInput = malloc(120);
    char* argv[6];
-   for (int i = 0; i < 6; i++) {
-       argv[i] = malloc(120);
-   }
+   createArgs(argv);
    parseInput(userInput, argv);
    while (strcmp(argv[0], "quit") != 0 ){
         progStatus = stat(argv[0], &var);
@@ -99,6 +101,8 @@ int main()
         else {
             printf("%s not found\n", argv[0]);
         }
+        userInput = malloc(120);
+        createArgs(argv);
         parseInput(userInput, argv);
     }
     printf("Goodbye!\n");
