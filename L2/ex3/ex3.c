@@ -18,68 +18,68 @@ lab machine (Linux on x86)
 #include <string.h>     //for string comparison etc
 #include <stdlib.h>     //for malloc()
 
+#define MAX_ARGUMENT_LENGTH 20
+#define MAX_NUMBER_OF_ARGUMENTS 6
+#define MAX_USER_INPUT_LENGTH MAX_ARGUMENT_LENGTH * MAX_NUMBER_OF_ARGUMENTS
+#define MAX_NUMBER_OF_CHILDPIDS 10
+
 struct stat var;
 
-void readInput(char* userInput, int length) {
-   printf("YWIMC > ");
-   fgets(userInput, length, stdin);
+char** readTokens(int maxTokenNum, int maxTokenSize, int* readTokenNum )
+{
+    char input[120];
+    char** tokenStrArr;
+    char* tStart; 
+    int i;      
+
+    tokenStrArr = (char**) malloc(sizeof(char*) * maxTokenNum );
+
+    for (i = 0; i < maxTokenNum; i++){
+        tokenStrArr[i] = NULL;
+    }
+
+    printf("YWIMC > ");
+    fgets(input, 120, stdin);
+
+    tStart = strtok(input, " \n"); 
+
+    i = 0;
+    while (i < maxTokenNum && tStart){
+        tokenStrArr[i] = (char*) malloc(sizeof(char) * maxTokenSize );
+        strncpy(tokenStrArr[i], tStart, maxTokenSize);    
+        tokenStrArr[i][maxTokenSize-1] = '\0';
+        i++;
+        tStart = strtok(NULL, " \n"); 
+    }
+    *readTokenNum = i;
+    return tokenStrArr;
 }
 
-void getArgs(char* userInput, char* argv[], int length) {
-   int strCtr = 0, argCtr = 0;
-   char path[length];
-   for (int i = 0; i < strlen(userInput); i++) {
-       if (*(userInput + i) != ' ' && *(userInput + i) != '\n') {
-           path[strCtr++] = *(userInput + i);
-       }
-       else {
-           path[strCtr] = '\0';
-           strcpy(argv[argCtr++], path);
-           char path[length];
-           strCtr = 0;
-       }
-   }
+void freeTokenArray(char** strArr, int size)
+{
+    int i;
+    for (i = 0; i < size; i++){
+        if (strArr[i])
+            free( strArr[i] );
+        strArr[i] = NULL;
+    }
+    free(strArr);
 }
 
-void parseInput(char* userInput, char* argv[], int length) {
-    readInput(userInput, length);
-    getArgs(userInput, argv, length);
-}
-
-int checkProcessBackground(char* argv[], int length) {
+int checkProcessBackground(char** argsArr, int length) {
     for (int i = 0; i < length; i++) {
-        if (strlen(argv[i]) >= 1 && strcmp(argv[i], "&") == 0) {
+        if (argsArr[i] != NULL && strcmp(argsArr[i], "&") == 0) {
             return 1;
         }
     }
     return 0;
 }
 
-void executeProcess(char* store[], int argsLength, int inputLength) {
-    for (int i = 0; i < argsLength; i++) {
-        //printf("%i - %s\n", i, store[i]);
-    }
-    char* temp[argsLength];
-    for (int i = 0; i < 5; i++) {
-        temp[i] = malloc(inputLength);
-        //printf("LENGTH: %lu\n", strlen(store[i]));
-        if (strlen(store[i]) >= 1) {
-            strcpy(temp[i], store[i]);
-            //printf("%i - %s\n", i, temp[i]);
-        }
-        else {
-            temp[i] = NULL;
-        }
-    }
-    char* const argv[] = {temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]};
+void executeProcess(char** argsArr, int argsLength, int inputLength) {
+    char* const argv[] = {argsArr[0], argsArr[1], argsArr[2], argsArr[3], argsArr[4], argsArr[5]};
     execv(argv[0], argv);
 }
 
-void createArgs(char* argv[], int length) {
-    for (int i = 0; i < 6; i++) {
-        argv[i] = malloc(length);
-    }
-}
 
 int isValidChildPid(int pid, int pids[], int length) {
     for (int i = 0; i < length; i++) {
@@ -109,34 +109,28 @@ void printChildIds(int childPids[], int length) {
 
 int main()
 { 
-   int progStatus, result, status, bg, MAX_USER_INPUT_LENGTH = 120, 
-       MAX_ARGUMENTS_LENGTH = 6, MAX_NUMBER_OF_CHILDPIDS = 10, childPids[MAX_NUMBER_OF_CHILDPIDS], 
-       ctr = 0;
-   char* userInput = malloc(MAX_USER_INPUT_LENGTH), *argv[MAX_ARGUMENTS_LENGTH];
+   int progStatus, result, status, bg, ctr = 0, childPids[MAX_NUMBER_OF_CHILDPIDS], nToken;
+   char **argsArr;
    for (int i = 0; i < MAX_NUMBER_OF_CHILDPIDS; i++) {
        childPids[i] = -1;
    }
-   createArgs(argv, MAX_ARGUMENTS_LENGTH);
-   parseInput(userInput, argv, MAX_USER_INPUT_LENGTH);
-   while (strcmp(argv[0], "quit") != 0 ){
-        progStatus = stat(argv[0], &var);
-        //printf("%i\n", progStatus);
-        bg = checkProcessBackground(argv, MAX_ARGUMENTS_LENGTH);
+   argsArr = readTokens(MAX_NUMBER_OF_ARGUMENTS, MAX_ARGUMENT_LENGTH, &nToken);
+   while (strcmp(argsArr[0], "quit") != 0 ){
+        progStatus = stat(argsArr[0], &var);
+        bg = checkProcessBackground(argsArr, MAX_NUMBER_OF_ARGUMENTS);
         if (progStatus == 0) {
             result = fork();
             if (bg == 1 && result != 0) {
                printf("Child %i is running in the background\n", result);
-               childPids[ctr++] = result;
+               childPids[(ctr++) % 10] = result;
             } else if (bg == 0 && result != 0) {
-                waitpid(result, NULL, 0);
+                waitpid(result, &status, 0);
             } else {
-                //printf("%i\n", result);
-                executeProcess(argv, MAX_ARGUMENTS_LENGTH, MAX_USER_INPUT_LENGTH);
+                executeProcess(argsArr, MAX_NUMBER_OF_ARGUMENTS, MAX_USER_INPUT_LENGTH);
             }
         } 
-        else if (strcmp(argv[0], "wait") == 0) {
-            int childPid = atoi(argv[1]);
-            printf("%i\n", childPid);
+        else if (strcmp(argsArr[0], "wait") == 0) {
+            int childPid = atoi(argsArr[1]);
             if (isValidChildPid(childPid, childPids, MAX_NUMBER_OF_CHILDPIDS) == 1) {
                 result = fork();
                 if (result != 0) {
@@ -147,18 +141,16 @@ int main()
                 printf("%i not a valid child\n", childPid);
             }
         }
-        else if (strcmp(argv[0], "printchild") == 0) {
+        else if (strcmp(argsArr[0], "printchild") == 0) {
             printChildIds(childPids, MAX_NUMBER_OF_CHILDPIDS);
         }
-        else if (strcmp(argv[0], "result") == 0) {
+        else if (strcmp(argsArr[0], "result") == 0) {
             printf("%i\n", status >> 8);
         }
         else {
-            printf("%s not found\n", argv[0]);
+            printf("%s not found\n", argsArr[0]);
         }
-        userInput = malloc(MAX_USER_INPUT_LENGTH);
-        createArgs(argv, MAX_ARGUMENTS_LENGTH);
-        parseInput(userInput, argv, MAX_USER_INPUT_LENGTH);
+        argsArr = readTokens(MAX_NUMBER_OF_ARGUMENTS, MAX_ARGUMENT_LENGTH, &nToken);
     }
     printf("Goodbye!\n");
     return 0;
