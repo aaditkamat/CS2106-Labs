@@ -76,8 +76,16 @@ int checkProcessBackground(char** argsArr, int length) {
 }
 
 void executeProcess(char** argsArr, int argsLength, int inputLength) {
-    char* const argv[] = {argsArr[0], argsArr[1], argsArr[2], argsArr[3], argsArr[4], argsArr[5]};
-    execv(argv[0], argv);
+    for (int i = 0; i < argsLength; i++) {
+        printf("%s\n", argsArr[i]);
+        if (strcmp(argsArr[i], "&") == 0) {
+            argsArr[i] = NULL;
+        }
+    } 
+    for (int i = 0; i < argsLength; i++) {
+        printf("%s\n", argsArr[i]);
+    }
+    execv(argsArr[0], argsArr);
 }
 
 
