@@ -1,8 +1,8 @@
 /*************************************
 * Lab 3 Exercise 2
-* Name:
-* Student No:
-* Lab Group:
+* Name: Aadit Kamat
+* Student No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -111,31 +111,35 @@ int main()
     //Initialize the semaphore with a value of "1"
     semaphoreArrayInit( mutex, 0, 1, 1);
 
+    int *start = malloc(sizeof(int));
+    *start = 1;
     result = fork();
-    if (result){        //Parent
+    if (result){        //Parent  
         for(i = 0; i < N/2; i ++){
 
             //only read+write to idx should be protected
             //TODO: Figure out how to protect the production
-
-            idx = sharedArray[0];       
+            semaphoreArrayWait(mutex, i);
+            if (i >= 249990) {
+                printf("P\n");
+            }
+            idx = sharedArray[0];     
             sharedArray[0] = idx+1;
-
             sharedArray[idx] = 1111;
+            semaphoreArrayPost(mutex, i);     
         }
-
-     } else {            //Child
+     } else {            //Child 
         for(i = 0; i < N/2; i ++){
-
             //TODO: Figure out how to protect the production
-
+            semaphoreArrayWait(mutex, i); 
+            if (i >= 249990) {
+                printf("Q\n");
+            }
             idx = sharedArray[0];
             sharedArray[0] = idx+1;
-
             sharedArray[idx] = 9999;
+            semaphoreArrayPost(mutex, i);
         }
-
-
         /*Remember to detach the various shared memory regions*/
         destroySempahoreArray(&mutex);
 

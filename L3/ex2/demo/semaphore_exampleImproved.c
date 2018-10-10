@@ -12,6 +12,7 @@
 #include <sys/shm.h>
 #include <sys/wait.h>
 #include <semaphore.h>
+#include <errno.h>
 
 typedef struct 
 {
@@ -40,28 +41,26 @@ int main()
 
     newSemaphore(&mutex);
 
-    sem_init(mutex.semPtr, 1, 1);
-
+    printf("%d %d %d\n", sem_init(mutex.semPtr, 0, 1), errno == EINVAL, errno == ENOSYS);
     result = fork();
     if (result){        //Parent
-
+        printf("%d\n", sem_wait(mutex.semPtr));
         for(i = 0; i < 3; i++){
             printf("p\n");
             sleep(1);
         }
-
+        
         //wait for child to finish
         wait(&i);
-
+        printf("%d\n", sem_post(mutex.semPtr));
     } else {            //Child
-
+        printf("%d\n", sem_post(mutex.semPtr));
         for(i = 0; i < 3; i++){
             printf("c\n");
             sleep(1);
         }
-
+        printf("%d\n", sem_post(mutex.semPtr));
     }
-
 
     destroySempahore(&mutex);
 
