@@ -1,8 +1,8 @@
 /*************************************
 * Lab 3 Exercise 3
-* Name:
-* Student No:
-* Lab Group:
+* Name: Aadit Kamat
+* Student No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -44,7 +44,7 @@ void newSemaphoreArray( sharedSemaphore* newSharedSemaphore, int n )
 }
 
 //Deallocate the shared memory region used for the semaphores
-void destroySempahoreArray( sharedSemaphore* semInfo )
+void destroySemaphoreArray( sharedSemaphore* semInfo )
 {
     shmdt( (char*)semInfo->semArray );
     shmctl(semInfo->shdMemId, IPC_RMID, NULL); 
@@ -212,7 +212,7 @@ void moveColor(int color, int* fromPlate, int* toPlate,
     printf("\tMove %d of color %d in %d ms\n", 
             amount, color, waitAmount);
 #endif
-    
+
     //Record Simultaneous Player for Checking Later
     semaphoreArrayWait(semaphores, 0);
 
@@ -247,9 +247,8 @@ void moveColor(int color, int* fromPlate, int* toPlate,
 #define MAXPLAYCOUNT 1
 
 //TODO: Add additional parameters (e.g. more sempahores) if needed
-
-void mancalaPlayer(int id, int* sharedMem, 
-        int size, int nRound, sharedSemaphore semaphores )
+void mancalaPlayer(int id, int* sharedMem, int size, int nRound, sharedSemaphore semaphores, sharedSemaphore playerSemaphores, 
+		   sharedSemaphore mancalaSemaphores)
 {
     int first, second, color, i;
     int *mancala, *playCount, *maxPlayCount;
@@ -260,8 +259,6 @@ void mancalaPlayer(int id, int* sharedMem,
     maxPlayCount = &sharedMem[MAXPLAYCOUNT];
     first = id;
     second = (id+1) % size; 
-
-
     for (i = 0; i < nRound; i++){
         color = colorArray[ rand() % 3 ] ;
 
@@ -269,15 +266,16 @@ void mancalaPlayer(int id, int* sharedMem,
         printf("Player[%d]: Moving Color %d from [%d] to [%d]\n", 
             id, color, first, second);
 #endif
-    
         //TODO: Find out what to do before color beads are moved
-
+	semaphoreArrayWait(playerSemaphores, 0);
+	semaphoreArrayWait(mancalaSemaphores, first);
+        semaphoreArrayWait(mancalaSemaphores, second);
         moveColor( color, &mancala[first], &mancala[second], 
             playCount, maxPlayCount, semaphores);
-
         //TODO: Find out what to do after color beads are moved
-
-
+	semaphoreArrayPost(mancalaSemaphores, first);
+	semaphoreArrayPost(mancalaSemaphores, second);
+	semaphoreArrayPost(playerSemaphores, 0);
     }
 
 }
@@ -356,26 +354,25 @@ int main(int argc, char** argv)
     countMancala (mancala, nPlayer, initState);
 
     //TODO: Add / Modify initialization for additional sempahores etc
-    sharedSemaphore semaphores;
+    sharedSemaphore semaphores, playerSemaphores, mancalaSemaphores;	
     newSemaphoreArray( &semaphores, 1 );
-
-    //Suggestion: you can use constants / define to give each semaphore
-    // index a name for ease of coding 
-    // e.g. we use the first sempahore as a mutex, so
-    // #define MUTEX 0
-    // semaphoreArrayInit(semaphores, MUTEX, 1, 1);
+    newSemaphoreArray( &playerSemaphores, 1);
+    newSemaphoreArray( &mancalaSemaphores, 1);
 
     semaphoreArrayInit(semaphores, 0, 1, 1);
-
+    semaphoreArrayInit(playerSemaphores, 0, 1, nPlayer - 1);
+    for (i = 0; i < nPlayer; i++) {
+	semaphoreArrayInit(mancalaSemaphores, i, 1, 1);
+    }
     //Spawn child processes
     for( i = 0; i < nPlayer; i++){
         result = fork();
 
-        //Each child process is a Mancala Game Player
+        //Each child process 26 is a Mancala Game Player
         if (result == 0) {
 
             //TODO: Modify the function parameters if needed
-            mancalaPlayer(i, sharedMem, nPlayer, nRound, semaphores );
+            mancalaPlayer(i, sharedMem, nPlayer, nRound, semaphores, playerSemaphores, mancalaSemaphores);
 
             shmdt( (char*)sharedMem );
             //Dont remove this return! Prevent child from running fork()!
@@ -406,7 +403,8 @@ int main(int argc, char** argv)
 
     //Remove shared memory region 
     shmctl(shdMemId, IPC_RMID, NULL); 
-    destroySempahoreArray( &semaphores );
+
+    destroySemaphoreArray( &semaphores );
 
     return 0;
 }
