@@ -1,8 +1,8 @@
 /*************************************
 * Lab 4 Exercise 2
-* Name:
-* Student No:
-* Lab Group:
+* Name: Aadit Kamat
+* Student No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -117,12 +117,20 @@ void* mymalloc(int size)
     size = (size - 1) / 4 * 4 + 4;
         
     //TODO: Implement worst fit algorithm here
-
-
-	if (current == NULL){	//heap full
-		return NULL;
+	int maximumFreeSize = -1;
+	for (current = hmi.base; current != NULL; current = current -> nextPart) {
+		if (current -> size > maximumFreeSize && current -> status == FREE) {
+			maximumFreeSize = current -> size;
+		}
 	}	
-
+	for (current = hmi.base; current != NULL; current = current -> nextPart) {
+		if (current -> size == maximumFreeSize) {
+			break;
+		}
+	}
+	if (current == NULL) { //heap is full
+		return NULL;
+	}
 	//Can we split the part? 
 	//The new "hole" should >= 4 bytes after placing in a new part
 	// meta info structure 

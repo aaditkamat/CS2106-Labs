@@ -63,7 +63,7 @@ void printHeapStatistic()
 
     //TODO: calculate and print the releavant information
 	for (current = hmi.base; current != NULL; current = current -> nextPart) {
-		if (current -> status == 1) {
+		if (current -> status == OCCUPIED) {
 			totalOccupiedPartitions++;
 			totalOccupiedSize += current -> size;
 		} else {	
