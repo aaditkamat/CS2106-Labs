@@ -1,9 +1,9 @@
 /*************************************
-* Lab 4 Exercise 3
-* Name:
-* Student No:
-* Lab Group:
-*************************************/
+ * Lab 4 Exercise 3
+ * Name: Aadit Rahul Kamat
+ * Student No: A0164761B	
+ * Lab Group: 02
+ *************************************/
 
 #include <stdio.h>
 #include <string.h>
@@ -23,30 +23,30 @@ void initializeMetaPartAt(partMetaInfo* bmiPtr, int size)
 void printMetaPartList(partMetaInfo* bmiPtr)
 {
 	partMetaInfo* current = bmiPtr;
-	
+
 	for ( current = bmiPtr; current != NULL; 
-		current = current->nextPart){
+			current = current->nextPart){
 
 		printf("[+%5d | %5d bytes | %d]\n", 
 				(int)((void*)current - (void*)hmi.base), 
-                current->size, current->status);
+				current->size, current->status);
 	}
 }
 
 void printHeapStatistic()
 {
-    //You dont need to provide the solution for this function for ex2
-   	printf("Heap Usage Statistics\n");
+	//You dont need to provide the solution for this function for ex2
+	printf("Heap Usage Statistics\n");
 
-    printf("Total Space: %d bytes\n", hmi.totalSize);
-    
-    printf("Total Occupied Partitions: %d\n", 0);
-    printf("\tTotal Occupied Size: %d bytes\n", 0);
+	printf("Total Space: %d bytes\n", hmi.totalSize);
 
-    printf("Total Number of Holes: %d\n", 0);
-    printf("\tTotal Hole Size: %d bytes\n", 0);
+	printf("Total Occupied Partitions: %d\n", 0);
+	printf("\tTotal Occupied Size: %d bytes\n", 0);
 
-    printf("Total Meta Information Size: %d bytes\n", 0);
+	printf("Total Number of Holes: %d\n", 0);
+	printf("\tTotal Hole Size: %d bytes\n", 0);
+
+	printf("Total Meta Information Size: %d bytes\n", 0);
 
 }
 
@@ -63,9 +63,9 @@ int setupHeap(int initialSize)
 	hmi.totalSize = initialSize;
 	hmi.base = (partMetaInfo*) base;
 	hmi.partMetaSize = sizeof(partMetaInfo);
-	
+
 	initializeMetaPartAt(hmi.base, initialSize - hmi.partMetaSize);
-	
+
 	return 1;
 }
 
@@ -98,7 +98,7 @@ void splitPart(partMetaInfo *bigPart, int size)
 	holeAt->nextPart = bigPart->nextPart;
 	bigPart->nextPart = holeAt;
 
-    bigPart->size = size;
+	bigPart->size = size;
 
 }
 
@@ -106,17 +106,17 @@ void* mymalloc(int size)
 {
 	partMetaInfo *current = hmi.base;
 
-    //We need to make sure the size is word
-    // aligned, i.e. if the word size is 4 bytes, the size need to be
-    // rounded to nearest multiples of 4. Otherwise, user can get "bus
-    // error" when accessing non-aligned memory locations
+	//We need to make sure the size is word
+	// aligned, i.e. if the word size is 4 bytes, the size need to be
+	// rounded to nearest multiples of 4. Otherwise, user can get "bus
+	// error" when accessing non-aligned memory locations
 
-    // divide by 4 then multiply by 4 gives rounded multiples of 4. 
-    // addition  of 4 round up to the next multiple 
-    // subtraction take care of the case where size is already multiples
-    //  of 4
-    size = (size - 1) / 4 * 4 + 4;
- 
+	// divide by 4 then multiply by 4 gives rounded multiples of 4. 
+	// addition  of 4 round up to the next multiple 
+	// subtraction take care of the case where size is already multiples
+	//  of 4
+	size = (size - 1) / 4 * 4 + 4;
+
 	while ( current!=NULL && 
 			(current->status == OCCUPIED || current->size < size) ){
 
@@ -135,7 +135,7 @@ void* mymalloc(int size)
 	}
 
 	current->status = OCCUPIED;
-	
+
 	return (void*)current + hmi.partMetaSize;
 }
 
@@ -143,59 +143,79 @@ void myfree(void* address)
 {
 	partMetaInfo *toBeFreed;
 
- 	toBeFreed = address - hmi.partMetaSize;
+	toBeFreed = address - hmi.partMetaSize;
 	toBeFreed->status = FREE;	
 
-    
-    //TODO: Implement merging here
-   
+	//TODO: Implement merging here
+	partMetaInfo *current  = hmi.base;
+	while (current != NULL && current -> status == FREE && current -> nextPart != NULL && (current -> nextPart) -> status == FREE) {
+        partMetaInfo *next = current -> nextPart;
+        partMetaInfo *store = next -> nextPart;
+    	current  -> size += next -> size + hmi.partMetaSize;
+		current -> nextPart = store;
+		if (current -> nextPart != NULL && (current -> nextPart) -> status == OCCUPIED) {
+ 		  current = (current -> nextPart) -> nextPart;
+		}
+	}
 }
 
 void compact()
 {
-    //TODO: Perform compaction
-    //Note: The relative ordering of the occupied partitions should be
-    //      maintained.
+	//TODO: Perform compaction
+	//Note: The relative ordering of the occupied partitions should be
+	//      maintained.
 
-    //Remember that the _content_ of each partition need to be copied
-    // too. Look into memmove() library call 
-    
+	//Remember that the _content_ of each partition need to be copied
+	// too. Look into memmove() library call 
+	partMetaInfo memoryPartitions[hmi.totalSize];
+	int index = 0;
+	for (partMetaInfo* current = hmi.base; current != NULL; current = current -> nextPart) {
+		if (current -> status == OCCUPIED) {
+			memmove(&memoryPartitions[index++], current, current -> size);
+			myfree(current);
+		}
+	}
+
+	for (int i = 0; i < index; i++) {
+		partMetaInfo* current = mymalloc(memoryPartitions[i].size);
+		memmove(current, &memoryPartitions[i], memoryPartitions[i].size);
+	}
 
 }
 
 //Do NOT Change
 void verifyCompact()
 {
-    partMetaInfo *current;
-    int *array, first, last;
+	partMetaInfo *current;
+	int *array, first, last;
 
-    printf("Compact Verifier:\n");
-    printf("=================\n");
-    printf("Content Check:\n");
-    for (current = hmi.base ;current != NULL && current->status != FREE; 
-        current = current->nextPart) {
-    
-        //Pointer arithmetic is based on the type of pointer
-        // so, need to use (void*) to calculate the offsetproperly
-        array = (int*)((void*)current + hmi.partMetaSize);
-        
-        //print first and last element
-        first = array[0];
-        last = array[ current->size / sizeof(int) - 1];
-        printf("\t[%d == %d]", first, last);
-        if (first != last){
-            printf(" = FAILED!\n");
-        } else {
-            printf("\n");  
-        }
-    }
+	printf("Compact Verifier:\n");
+	printf("=================\n");
+	printf("Content Check:\n");
+	for (current = hmi.base ;current != NULL && current->status != FREE; 
+			current = current->nextPart) {
 
-    //Should not have any more partition after the last free partition
-    printf("Partition Check: ");
-    if (current != NULL && current->nextPart != NULL){
-        printf("FAILED!\n");
-    } else {
-        printf("PASSED\n");
-    }
-    printf("\n");
+		//Pointer arithmetic is based on the type of pointer
+		// so, need to use (void*) to calculate the offsetproperly
+		array = (int*)((void*)current + hmi.partMetaSize);
+
+		//print first and last element
+		first = array[0];
+		last = array[ current->size / sizeof(int) - 1];
+		printf("\t[%d == %d]", first, last);
+		if (first != last){
+			printf(" = FAILED!\n");
+		} else {
+			printf("\n");  
+		}
+	}
+
+	//Should not have any more partition after the last free partition
+	printf("Partition Check: ");
+	if (current != NULL && current->nextPart != NULL){
+		printf("FAILED!\n");
+	} else {
+		printf("PASSED\n");
+	}
+	printf("\n");
 }
