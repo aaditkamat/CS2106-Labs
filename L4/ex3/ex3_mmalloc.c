@@ -171,7 +171,7 @@ void compact()
 	int index = 0;
 	for (partMetaInfo* current = hmi.base; current != NULL; current = current -> nextPart) {
 		if (current -> status == OCCUPIED) {
-			memmove(&memoryPartitions[index++], current, current -> size);
+			memmove(&memoryPartitions[index++], current + hmi.partMetaSize, current -> size);
 			myfree(current);
 		}
 	}
@@ -180,7 +180,6 @@ void compact()
 		partMetaInfo* current = mymalloc(memoryPartitions[i].size);
 		memmove(current, &memoryPartitions[i], memoryPartitions[i].size);
 	}
-
 }
 
 //Do NOT Change
