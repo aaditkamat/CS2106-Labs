@@ -142,10 +142,10 @@ void* mymalloc(int size)
 void myfree(void* address)
 {
 	partMetaInfo *toBeFreed;
-
 	toBeFreed = address - hmi.partMetaSize;
-	toBeFreed->status = FREE;	
-
+	printf("In myfree: %p %p %i\n", address, toBeFreed, hmi.partMetaSize);
+	toBeFreed->status = FREE;
+		
 	//TODO: Implement merging here
 	partMetaInfo *current  = hmi.base;
 	while (current != NULL && current -> status == FREE && current -> nextPart != NULL && (current -> nextPart) -> status == FREE) {
@@ -159,6 +159,24 @@ void myfree(void* address)
 	}
 }
 
+int collectOccupied(partMetaInfo* memoryPartitions) {
+  int ctr = 0;
+  for (partMetaInfo* current = hmi.base; current != NULL; current = current -> nextPart) {
+	printf("Current address: %p\n", current);	
+	if (current -> status == OCCUPIED) {
+		(memoryPartitions + ctr) -> size = current -> size;
+		printf("Data before memmove: %i %i\n", *(int *)(memoryPartitions + ctr), *(int *)current);
+		memmove(memoryPartitions + ctr, current, current -> size);
+		printf("Data after memmove: %i\n", *(int *)(memoryPartitions + ctr));
+		printf("In collectOccupied: %p %p %i\n", current, (partMetaInfo*)((void*)current + hmi.partMetaSize), hmi.partMetaSize);
+		myfree(current + hmi.partMetaSize);
+		printf("Status: %i\n", current -> status);
+		ctr++;
+	}
+  }
+  return ctr;
+}
+
 void compact()
 {
 	//TODO: Perform compaction
@@ -166,19 +184,24 @@ void compact()
 	//      maintained.
 
 	//Remember that the _content_ of each partition need to be copied
-	// too. Look into memmove() library call 
-	partMetaInfo memoryPartitions[hmi.totalSize];
-	int index = 0;
-	for (partMetaInfo* current = hmi.base; current != NULL; current = current -> nextPart) {
-		if (current -> status == OCCUPIED) {
-			memmove(&memoryPartitions[index++], current + hmi.partMetaSize, current -> size);
-			myfree(current);
-		}
-	}
+	// too. Look into memmove() library call
+	printf("Before collecting all the occupied memory portions\n");
+        printHeapMetaInfo();
 
-	for (int i = 0; i < index; i++) {
-		partMetaInfo* current = mymalloc(memoryPartitions[i].size);
-		memmove(current, &memoryPartitions[i], memoryPartitions[i].size);
+	partMetaInfo memoryPartitions[hmi.totalSize];
+	partMetaInfo* temp = memoryPartitions;
+	
+	int ctr = collectOccupied(memoryPartitions);
+	//int ctr = 0;
+
+	printf("After collecting all the occupied memory portions\n");
+        printHeapMetaInfo();
+
+	for (int i = 0; i < ctr; i++) {
+		printf("Size: %i\n Data: %i\n", temp -> size, *(int*)temp);
+		partMetaInfo* current = mymalloc(temp -> size);
+		memmove(current, temp, temp-> size);
+		temp = temp -> nextPart;
 	}
 }
 
