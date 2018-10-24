@@ -1,7 +1,7 @@
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -10,7 +10,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -20,7 +20,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -31,7 +31,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -43,7 +43,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -56,7 +56,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -70,7 +70,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -85,7 +85,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -101,7 +101,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -117,7 +117,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -133,7 +133,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -149,7 +149,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -166,7 +166,7 @@ Before collecting all the occupied memory portions
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -179,77 +179,129 @@ Partition list:
 [+  448 |    40 bytes | 1]
 [+  512 |   488 bytes | 0]
 
-Data at current: 112 Address of current: 0x11d0058 Size of current: 40
-Data at temp: 112 Address of temp: 0x11d0018
-Data at new: 112 Address of new: 0x11d0058
-Data at current: 114 Address of current: 0x11d00d8 Size of current: 40
-Data at temp: 114 Address of temp: 0x11d0098
-Data at new: 114 Address of new: 0x11d00d8
-Data at current: 116 Address of current: 0x11d0158 Size of current: 40
-Data at temp: 116 Address of temp: 0x11d0118
-Data at new: 116 Address of new: 0x11d0158
-Data at current: 118 Address of current: 0x11d01d8 Size of current: 40
-Data at temp: 118 Address of temp: 0x11d0198
-Data at new: 118 Address of new: 0x11d01d8
-After collecting all the occupied memory portions
+After freeing current:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 1]
+[+   64 |    40 bytes | 0]
+[+  128 |    40 bytes | 0]
+[+  192 |    40 bytes | 1]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+After freeing current:
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0x1ee9000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 1]
+[+   64 |    40 bytes | 1]
+[+  128 |    40 bytes | 0]
+[+  192 |    40 bytes | 0]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+After freeing current:
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0x1ee9000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 1]
+[+   64 |    40 bytes | 1]
+[+  128 |    40 bytes | 1]
+[+  192 |    40 bytes | 0]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 0]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+After freeing current:
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
 [+   64 |    40 bytes | 1]
 [+  128 |    40 bytes | 1]
 [+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 1]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 0]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 0]
+[+  512 |   488 bytes | 0]
+
+After collecting all the occupied memory portions
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0x1ee9000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 1]
+[+   64 |    40 bytes | 1]
+[+  128 |    40 bytes | 1]
+[+  192 |    40 bytes | 1]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 0]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 0]
 [+  512 |   488 bytes | 0]
 
 Compact Verifier:
 =================
 Content Check:
 	[112 == 112]
-	[112 == 112]
-	[114 == 114]
 	[114 == 114]
 	[116 == 116]
-	[116 == 116]
 	[118 == 118]
-	[118 == 118]
-Partition Check: PASSED
+Partition Check: FAILED!
 
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
 [+   64 |    40 bytes | 1]
 [+  128 |    40 bytes | 1]
 [+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 1]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 0]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 0]
 [+  512 |   488 bytes | 0]
 
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x11d0000
+Start Address = 0x1ee9000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
 [+   64 |    40 bytes | 1]
 [+  128 |    40 bytes | 1]
 [+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 1]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
+[+  256 |    40 bytes | 0]
+[+  320 |    40 bytes | 0]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 0]
 [+  512 |   488 bytes | 0]
 

@@ -159,18 +159,14 @@ void myfree(void* address)
 }
 
 int collectOccupied() {
-	partMetaInfo *temp, *new;
+	partMetaInfo *new;
 	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
 		if (current -> status == OCCUPIED) {
-			temp = mymalloc(current -> size);
-			printf("Data at current: %i Address of current: %p Size of current: %i\n", *(int*)((void*)current+ hmi.partMetaSize), (void*)current + hmi.partMetaSize, current -> size);
-			memmove(temp, (void*)current + hmi.partMetaSize, current -> size);
-			printf("Data at temp: %i Address of temp: %p\n", *(int *)(temp), temp);
-			myfree((void*)current + hmi.partMetaSize);
 			new = mymalloc(current -> size);
-			memmove(new, temp, current -> size);
-			printf("Data at new: %i Address of new: %p\n", *(int *)(new), new);
-			myfree((void*)temp + hmi.partMetaSize);
+			memmove(new, (void*)current + hmi.partMetaSize, current -> size);
+			myfree((void*)current + hmi.partMetaSize);
+		    printf("After freeing current:\n");
+			printHeapMetaInfo();
 		}
 	}
 }
