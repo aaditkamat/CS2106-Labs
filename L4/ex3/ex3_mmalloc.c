@@ -145,30 +145,24 @@ void myfree(void* address)
 	toBeFreed = address - hmi.partMetaSize;
 	toBeFreed->status = FREE;
 
+	printf("Before merging: \n");
+	printHeapMetaInfo();
 	//TODO: Implement merging here
-	partMetaInfo *current  = hmi.base;
-	while (current != NULL && current -> status == FREE && current -> nextPart != NULL && (current -> nextPart) -> status == FREE) {
-		partMetaInfo *next = current -> nextPart;
-		partMetaInfo *store = next -> nextPart;
-		current  -> size += next -> size + hmi.partMetaSize;
-		current -> nextPart = store;
-		if (current -> nextPart != NULL && (current -> nextPart) -> status == OCCUPIED) {
-			current = (current -> nextPart) -> nextPart;
-		}
-	}
-}
-
-int collectOccupied() {
-	partMetaInfo *new;
-	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
+	for (partMetaInfo* current = hmi.base; current != NULL && current -> nextPart != NULL;) {
 		if (current -> status == OCCUPIED) {
-			new = mymalloc(current -> size);
-			memmove(new, (void*)current + hmi.partMetaSize, current -> size);
-			myfree((void*)current + hmi.partMetaSize);
-		    printf("After freeing current:\n");
-			printHeapMetaInfo();
+		  current = current -> nextPart;
+		  continue;
 		}
+		if (current -> nextPart != NULL && (current -> nextPart) -> status == OCCUPIED) {
+		  current = (current -> nextPart) -> nextPart;
+		  continue;
+		}
+		partMetaInfo *store = (current -> nextPart)-> nextPart;
+		current -> size += (current -> nextPart) -> size + hmi.partMetaSize;
+		current -> nextPart = store;
 	}
+	printf("After merging: \n");
+	printHeapMetaInfo();
 }
 
 void compact()
@@ -181,8 +175,15 @@ void compact()
 	// too. Look into memmove() library call
 	printf("Before collecting all the occupied memory portions\n");
 	printHeapMetaInfo();
-
-	collectOccupied();
+	
+	partMetaInfo *new;
+	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
+		if (current -> status == OCCUPIED) {
+			new = mymalloc(current -> size);
+			memmove(new, (void*)current + hmi.partMetaSize, current -> size);
+			myfree((void*)current + hmi.partMetaSize);
+		}
+	}
 
 	printf("After collecting all the occupied memory portions\n");
 	printHeapMetaInfo();

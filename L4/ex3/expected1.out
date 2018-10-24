@@ -1,7 +1,7 @@
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -10,7 +10,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -20,7 +20,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -31,7 +31,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -43,7 +43,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -56,7 +56,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -70,7 +70,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -85,7 +85,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 1]
@@ -102,7 +102,7 @@ Before merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -119,7 +119,7 @@ After merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -135,7 +135,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -152,7 +152,7 @@ Before merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -169,7 +169,7 @@ After merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -185,7 +185,7 @@ Partition list:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
@@ -202,164 +202,61 @@ Before merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
 [+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-After merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 1]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Before merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-After merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Before collecting all the occupied memory portions
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 0]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Before merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 0]
-[+  128 |    40 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-After merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |   104 bytes | 0]
-[+  192 |    40 bytes | 1]
-[+  256 |    40 bytes | 0]
-[+  320 |    40 bytes | 1]
-[+  384 |    40 bytes | 0]
-[+  448 |    40 bytes | 1]
-[+  512 |   488 bytes | 0]
-
-Before merging: 
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 1]
 [+   64 |    40 bytes | 1]
 [+  128 |    40 bytes | 0]
 [+  192 |    40 bytes | 0]
-[+  256 |    40 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 1]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+After merging: 
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0xf15000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 1]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 1]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0xf15000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 1]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 1]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+Before merging: 
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0xf15000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 1]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
 [+  320 |    40 bytes | 1]
 [+  384 |    40 bytes | 0]
 [+  448 |    40 bytes | 1]
@@ -369,12 +266,28 @@ After merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
+[+    0 |    40 bytes | 0]
 [+   64 |    40 bytes | 1]
-[+  128 |   168 bytes | 0]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |    40 bytes | 1]
+[+  384 |    40 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0xf15000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 1]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
 [+  320 |    40 bytes | 1]
 [+  384 |    40 bytes | 0]
 [+  448 |    40 bytes | 1]
@@ -384,13 +297,13 @@ Before merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
+[+    0 |    40 bytes | 0]
 [+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |   104 bytes | 0]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
 [+  320 |    40 bytes | 0]
 [+  384 |    40 bytes | 0]
 [+  448 |    40 bytes | 1]
@@ -400,13 +313,28 @@ After merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
+[+    0 |    40 bytes | 0]
 [+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |   232 bytes | 0]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
+
+Heap Meta Info:
+===============
+Total Size = 1024 bytes
+Start Address = 0xf15000
+Partition Meta Size = 24 bytes
+Partition list:
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 1]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
 [+  448 |    40 bytes | 1]
 [+  512 |   488 bytes | 0]
 
@@ -414,73 +342,51 @@ Before merging:
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |    40 bytes | 1]
-[+  256 |   168 bytes | 0]
-[+  448 |    40 bytes | 0]
+[+    0 |    40 bytes | 0]
+[+   64 |    40 bytes | 0]
+[+  128 |   104 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
+[+  448 |    40 bytes | 1]
 [+  512 |   488 bytes | 0]
 
 After merging: 
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |    40 bytes | 1]
-[+  256 |   744 bytes | 0]
-
-After collecting all the occupied memory portions
-Heap Meta Info:
-===============
-Total Size = 1024 bytes
-Start Address = 0x2569000
-Partition Meta Size = 24 bytes
-Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |    40 bytes | 1]
-[+  256 |   744 bytes | 0]
-
-Compact Verifier:
-=================
-Content Check:
-	[112 == 112]
-	[114 == 114]
-	[116 == 116]
-	[118 == 118]
-Partition Check: PASSED
+[+    0 |   232 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
 
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |    40 bytes | 1]
-[+  256 |   744 bytes | 0]
+[+    0 |   232 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
 
 Heap Meta Info:
 ===============
 Total Size = 1024 bytes
-Start Address = 0x2569000
+Start Address = 0xf15000
 Partition Meta Size = 24 bytes
 Partition list:
-[+    0 |    40 bytes | 1]
-[+   64 |    40 bytes | 1]
-[+  128 |    40 bytes | 1]
-[+  192 |    40 bytes | 1]
-[+  256 |   744 bytes | 0]
+[+    0 |   232 bytes | 0]
+[+  256 |    40 bytes | 1]
+[+  320 |   104 bytes | 0]
+[+  448 |    40 bytes | 1]
+[+  512 |   488 bytes | 0]
 
