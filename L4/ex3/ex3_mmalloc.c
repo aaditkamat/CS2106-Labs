@@ -145,8 +145,6 @@ void myfree(void* address)
 	toBeFreed = address - hmi.partMetaSize;
 	toBeFreed->status = FREE;
 
-	printf("Before merging: \n");
-	printHeapMetaInfo();
 	//TODO: Implement merging here
 	for (partMetaInfo* current = hmi.base; current != NULL && current -> nextPart != NULL;) {
 		if (current -> status == OCCUPIED) {
@@ -161,8 +159,6 @@ void myfree(void* address)
 		current -> size += (current -> nextPart) -> size + hmi.partMetaSize;
 		current -> nextPart = store;
 	}
-	printf("After merging: \n");
-	printHeapMetaInfo();
 }
 
 void compact()
@@ -173,8 +169,6 @@ void compact()
 
 	//Remember that the _content_ of each partition need to be copied
 	// too. Look into memmove() library call
-	printf("Before collecting all the occupied memory portions\n");
-	printHeapMetaInfo();
 	
 	partMetaInfo *new;
 	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
@@ -184,9 +178,6 @@ void compact()
 			myfree((void*)current + hmi.partMetaSize);
 		}
 	}
-
-	printf("After collecting all the occupied memory portions\n");
-	printHeapMetaInfo();
 }
 
 //Do NOT Change
