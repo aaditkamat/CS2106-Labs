@@ -143,38 +143,36 @@ void myfree(void* address)
 {
 	partMetaInfo *toBeFreed;
 	toBeFreed = address - hmi.partMetaSize;
-	printf("In myfree: %p %p %i\n", address, toBeFreed, hmi.partMetaSize);
 	toBeFreed->status = FREE;
-		
+
 	//TODO: Implement merging here
 	partMetaInfo *current  = hmi.base;
 	while (current != NULL && current -> status == FREE && current -> nextPart != NULL && (current -> nextPart) -> status == FREE) {
-        partMetaInfo *next = current -> nextPart;
-        partMetaInfo *store = next -> nextPart;
-    	current  -> size += next -> size + hmi.partMetaSize;
+		partMetaInfo *next = current -> nextPart;
+		partMetaInfo *store = next -> nextPart;
+		current  -> size += next -> size + hmi.partMetaSize;
 		current -> nextPart = store;
 		if (current -> nextPart != NULL && (current -> nextPart) -> status == OCCUPIED) {
- 		  current = (current -> nextPart) -> nextPart;
+			current = (current -> nextPart) -> nextPart;
 		}
 	}
 }
 
-int collectOccupied(partMetaInfo* memoryPartitions) {
-  int ctr = 0;
-  for (partMetaInfo* current = hmi.base; current != NULL; current = current -> nextPart) {
-	printf("Current address: %p\n", current);	
-	if (current -> status == OCCUPIED) {
-		(memoryPartitions + ctr) -> size = current -> size;
-		printf("Data before memmove: %i %i\n", *(int *)(memoryPartitions + ctr), *(int *)current);
-		memmove(memoryPartitions + ctr, current, current -> size);
-		printf("Data after memmove: %i\n", *(int *)(memoryPartitions + ctr));
-		printf("In collectOccupied: %p %p %i\n", current, (partMetaInfo*)((void*)current + hmi.partMetaSize), hmi.partMetaSize);
-		myfree(current + hmi.partMetaSize);
-		printf("Status: %i\n", current -> status);
-		ctr++;
+int collectOccupied() {
+	partMetaInfo *temp, *new;
+	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
+		if (current -> status == OCCUPIED) {
+			temp = mymalloc(current -> size);
+			printf("Data at current: %i Address of current: %p Size of current: %i\n", *(int*)((void*)current+ hmi.partMetaSize), (void*)current + hmi.partMetaSize, current -> size);
+			memmove(temp, (void*)current + hmi.partMetaSize, current -> size);
+			printf("Data at temp: %i Address of temp: %p\n", *(int *)(temp), temp);
+			myfree((void*)current + hmi.partMetaSize);
+			new = mymalloc(current -> size);
+			memmove(new, temp, current -> size);
+			printf("Data at new: %i Address of new: %p\n", *(int *)(new), new);
+			myfree((void*)temp + hmi.partMetaSize);
+		}
 	}
-  }
-  return ctr;
 }
 
 void compact()
@@ -186,23 +184,12 @@ void compact()
 	//Remember that the _content_ of each partition need to be copied
 	// too. Look into memmove() library call
 	printf("Before collecting all the occupied memory portions\n");
-        printHeapMetaInfo();
+	printHeapMetaInfo();
 
-	partMetaInfo memoryPartitions[hmi.totalSize];
-	partMetaInfo* temp = memoryPartitions;
-	
-	int ctr = collectOccupied(memoryPartitions);
-	//int ctr = 0;
+	collectOccupied();
 
 	printf("After collecting all the occupied memory portions\n");
-        printHeapMetaInfo();
-
-	for (int i = 0; i < ctr; i++) {
-		printf("Size: %i\n Data: %i\n", temp -> size, *(int*)temp);
-		partMetaInfo* current = mymalloc(temp -> size);
-		memmove(current, temp, temp-> size);
-		temp = temp -> nextPart;
-	}
+	printHeapMetaInfo();
 }
 
 //Do NOT Change
