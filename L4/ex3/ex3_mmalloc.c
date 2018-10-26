@@ -169,19 +169,27 @@ void compact()
 
 	//Remember that the _content_ of each partition need to be copied
 	// too. Look into memmove() library call
-	int ctr = 0, index = 0;	
-	partMetaInfo *new;
+	int store[hmi.totalSize];
+	int ctr = 0, index = 0, size;
+	partMetaInfo* new;	
 	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
 		if (current -> status == OCCUPIED && index != ctr) {
-			new = mymalloc(current -> size);
-			memmove(new, (void*)current + hmi.partMetaSize, current -> size);
+			printf("Before shifting\n");
+			printHeapMetaInfo();
+			size = current -> size;
+			memmove(store, (void*)current + hmi.partMetaSize, current -> size);
 			myfree((void*)current + hmi.partMetaSize);
+		    new = mymalloc(current -> size);
+			memmove(new, store, size);
+			printf("After shifting\n");
+			printHeapMetaInfo();
 		}
 		if (current -> status == OCCUPIED && index == ctr) {
 		  index++;
 		}
 		ctr++;
 	}
+    
 }
 
 //Do NOT Change
