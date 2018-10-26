@@ -174,15 +174,11 @@ void compact()
 	partMetaInfo* new;	
 	for (partMetaInfo *current = hmi.base; current != NULL; current = current -> nextPart) {
 		if (current -> status == OCCUPIED && index != ctr) {
-			printf("Before shifting\n");
-			printHeapMetaInfo();
 			size = current -> size;
 			memmove(store, (void*)current + hmi.partMetaSize, current -> size);
 			myfree((void*)current + hmi.partMetaSize);
-		    new = mymalloc(current -> size);
+		        new = mymalloc(current -> size);
 			memmove(new, store, size);
-			printf("After shifting\n");
-			printHeapMetaInfo();
 		}
 		if (current -> status == OCCUPIED && index == ctr) {
 		  index++;
