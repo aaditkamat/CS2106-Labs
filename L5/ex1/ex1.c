@@ -1,8 +1,8 @@
 /*************************************
 * Lab 5 Exercise 1
-* Name:
-* Student No:
-* Lab Group:
+* Name: Aadit Rahul Kamat
+* Student No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -36,19 +36,22 @@ int main()
     fdIn = open(  fileName, O_RDONLY );
 
     //TODO:Check for valid file
-
+	if (fdIn == -1) {
+	   printf("Cannot Open");
+	   exit(1);
+	}
     //TODO:Calculate the file size
-
-    fileSize = 0;   //change this line to reflect actual file size
+    fileSize = lseek(fdIn, 0, SEEK_END);
     printf("Size = %i bytes\n", fileSize);
-
+	lseek(fdIn, 0, 0);
     //TODO: Change the code below so that it reads until the end of file
     // Right now, this only read the first item.
-    read( fdIn, buffer, 4);
-
+	for (int size = 0; size < fileSize; size += 4) {
+	  read( fdIn, buffer, 4);
     //This is how you can "convert" bytes into a single integer
-    ip = (int*) &buffer;
-    printf("%d\n", *ip); 
+      ip = (int*) &buffer;
+      printf("%d\n", *ip); 
+	}
     
     close( fdIn );  //good practice
 
