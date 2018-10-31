@@ -1,8 +1,14 @@
 /*************************************
 * Lab 5 Exercise 1
+<<<<<<< HEAD
 * Name: Aadit Rahul Kamat
 * Student No: A0164761B
 * Lab Group: 02
+=======
+* Name:
+* Student No:
+* Lab Group:
+>>>>>>> b811378... Add source files and pdf for Lab 5
 *************************************/
 
 #include <stdio.h>
@@ -36,6 +42,7 @@ int main()
     fdIn = open(  fileName, O_RDONLY );
 
     //TODO:Check for valid file
+<<<<<<< HEAD
 	if (fdIn == -1) {
 	   printf("Cannot Open");
 	   exit(1);
@@ -52,6 +59,21 @@ int main()
       ip = (int*) &buffer;
       printf("%d\n", *ip); 
 	}
+=======
+
+    //TODO:Calculate the file size
+
+    fileSize = 0;   //change this line to reflect actual file size
+    printf("Size = %i bytes\n", fileSize);
+
+    //TODO: Change the code below so that it reads until the end of file
+    // Right now, this only read the first item.
+    read( fdIn, buffer, 4);
+
+    //This is how you can "convert" bytes into a single integer
+    ip = (int*) &buffer;
+    printf("%d\n", *ip); 
+>>>>>>> b811378... Add source files and pdf for Lab 5
     
     close( fdIn );  //good practice
 
