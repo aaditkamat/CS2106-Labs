@@ -1,8 +1,8 @@
 /*************************************
 * Lab 5 Exercise 2
-* Name:
-* Student No:
-* Lab Group:
+* Name: Aadit Rahul Kamat
+* Student No: A0164761B
+* Lab Group: 02
 *************************************/
 
 #include <stdio.h>
@@ -28,11 +28,33 @@ void print_as_text(uint8_t *data, int size)
 }
 
 //TODO: Add helper functions if needed
+int check_file_name(FAT_DE de, char filename[]) {
+  char **nameParts = malloc(11);
+  const char* delim = ".";
+  int i = 0;
+  char *token = strtok(filename, delim);
+  nameParts[0] = token;
+  while (token != NULL) {
+    token = strtok(NULL, delim);
+    nameParts[++i] = token;
+  }
+  strcat(nameParts[0], nameParts[1]);
+  return strcmp(de.name, nameParts[0]); 
+}
 
 int read_file( FAT_RUNTIME* rt, char filename[])
 {
     //TODO: Your code here
-
+	for (int i = 0; i < 256; i++) {
+	  int result = check_file_name(rt -> dir_buffer[i].name, filename);
+	  if (result == 0) {
+	    int fdIn = open(filename, O_RDONLY), size = rt -> dir_buffer[i].file_size;;
+	    char* buffer;
+	    read(fdIn, buffer, size);
+		printf("%s\n", buffer);
+	    return 1;
+	  }
+	} 
 	return 0;	
 }
 
