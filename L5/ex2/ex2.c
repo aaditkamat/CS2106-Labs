@@ -27,8 +27,27 @@ void print_as_text(uint8_t *data, int size)
     }
 }
 
+int compare(uint8_t* str1, char* str2, int size) {
+  printf("%s %s\n", str1, str2);
+  int j;
+  for (j = 0; j < size; j++) {
+    if (str1[j] != ' ') {
+      break;
+    }
+  }
+
+  for (int i = 0; i < strlen(str2); i++) {
+    printf("%c %c %d\n", str1[j], str2[i], str1[j] == str2[i]);
+    if (str1[j] != str2[i]) {
+      return -1;
+    }
+    j++;
+  }
+  return 0;
+}
+
 //TODO: Add helper functions if needed
-int check_file_name(FAT_DE de, char filename[]) {
+int check_file_name(uint8_t *name, char filename[]) {
   char **nameParts = malloc(11);
   const char* delim = ".";
   int i = 0;
@@ -39,19 +58,23 @@ int check_file_name(FAT_DE de, char filename[]) {
     nameParts[++i] = token;
   }
   strcat(nameParts[0], nameParts[1]);
-  return strcmp(de.name, nameParts[0]); 
+  printf("%d %d\n", name, compare(name, nameParts[0], 11));
+  return 0; 
 }
 
 int read_file( FAT_RUNTIME* rt, char filename[])
 {
     //TODO: Your code here
-	for (int i = 0; i < 256; i++) {
-	  int result = check_file_name(rt -> dir_buffer[i].name, filename);
+	for (int i = 0; i < S_SECTOR_SIZE; i++) {
+          char fileNameCopy[13];
+          strcpy(fileNameCopy, filename);
+	  int result = check_file_name(rt -> dir_buffer[i].name, fileNameCopy);
+          printf("Result at read_file: %i %s\n", result, filename);
 	  if (result == 0) {
-	    int fdIn = open(filename, O_RDONLY), size = rt -> dir_buffer[i].file_size;;
+	    int fdIn = open(filename, O_RDONLY), size = rt -> dir_buffer[i].file_size;
 	    char* buffer;
 	    read(fdIn, buffer, size);
-		printf("%s\n", buffer);
+	    printf("%s\n", buffer);
 	    return 1;
 	  }
 	} 
