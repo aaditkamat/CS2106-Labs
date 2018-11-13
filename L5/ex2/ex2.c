@@ -47,37 +47,48 @@ int compare(uint8_t* str1, char* str2, int size) {
 }
 
 //TODO: Add helper functions if needed
-int check_file_name(uint8_t *name, char filename[]) {
-  char **nameParts = malloc(11);
-  const char* delim = ".";
-  int i = 0;
-  char *token = strtok(filename, delim);
-  nameParts[0] = token;
-  while (token != NULL) {
-    token = strtok(NULL, delim);
-    nameParts[++i] = token;
-  }
-  strcat(nameParts[0], nameParts[1]);
-  printf("%d %d\n", name, compare(name, nameParts[0], 11));
-  return 0; 
+int check_file_name(uint8_t *name, char filename[], int length) {
+  for (int i = 0; i < length; i++) {
+    if (name[i] != filename[i]) {
+       return 0;
+    }
+  }  
+  return 1;
 }
 
 int read_file( FAT_RUNTIME* rt, char filename[])
 {
     //TODO: Your code here
 	for (int i = 0; i < S_SECTOR_SIZE; i++) {
-          char fileNameCopy[13];
-          strcpy(fileNameCopy, filename);
-	  int result = check_file_name(rt -> dir_buffer[i].name, fileNameCopy);
-          printf("Result at read_file: %i %s\n", result, filename);
-	  if (result == 0) {
-	    int fdIn = open(filename, O_RDONLY), size = rt -> dir_buffer[i].file_size;
-	    char* buffer;
-	    read(fdIn, buffer, size);
-	    printf("%s\n", buffer);
-	    return 1;
-	  }
-	} 
+          uint8_t* name = rt -> dir_buffer[i].name;
+	  char *sfn = malloc(13);
+          to_sfn(filename, sfn);
+          
+          if (check_file_name(name, sfn, 11) == 1) {
+            int total_size = rt -> dir_buffer[i].file_size;
+            uint16_t sector = rt -> dir_buffer[i].start_sector; 
+              while(sector != FE_END){
+               uint8_t* data;
+               int size = 0; 
+               if (total_size < S_SECTOR_SIZE) {
+                  data = malloc(total_size);
+                  size = total_size;
+               }
+	       else {
+                 data = malloc(S_SECTOR_SIZE);
+                 size = S_SECTOR_SIZE;
+               }
+               total_size -= S_SECTOR_SIZE;
+               if (sector != FE_BAD && sector != FE_FREE) {
+                  read_data_sector(rt -> media_f, sector, data);
+               }
+               print_as_text(data, size);
+               sector = rt -> fat[sector];
+             } 
+            return 1;
+          }
+ 	  
+	}
 	return 0;	
 }
 
