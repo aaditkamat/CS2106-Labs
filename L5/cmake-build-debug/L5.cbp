@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="L5"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="L5">
+				<Option output="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/L5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/."/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 L5"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="L5/fast">
+				<Option output="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/L5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/."/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2"/>
+					<Add directory="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 L5/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Aadit/CLionProjects/CS2106-Labs/L5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/4files.img">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/USFAT.h">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/USFATI">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/USFAT_Inspect.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/USFAT_Util.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/empty.img">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/makefile">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/common/reset.sh">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/1000int.dat">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/10int.dat">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/ex1.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test1.in">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test1.out">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test2.in">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test2.out">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test3.in">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex1/test3.out">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/a.out">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/alice.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/ex2.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/fat.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/hello.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/makefile">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/mystery.abc">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/rain.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex2/test.sh">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/alice.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/ex3.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/fat.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/hello.c">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/makefile">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/mystery.abc">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/rain.txt">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/ex3/test.sh">
+			<Option target="L5"/>
+		</Unit>
+		<Unit filename="/Users/Aadit/CLionProjects/CS2106-Labs/L5/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

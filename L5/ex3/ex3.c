@@ -4,6 +4,8 @@
  * Student No: A0164761B
  * Lab Group: 02
  *************************************/
+#define FILENAME_LENGTH 11
+#define FULL_SIZE 8
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,26 +17,108 @@
 #include "../common/USFAT.h"
 
 //TODO: Add helper functions if needed
-int check_file_name(uint8_t *name, char filename[], int length) {
-    char *sfn = malloc(13);
+int check_file_name(uint8_t *name, char filename[]) {
+    char *sfn = malloc(FILENAME_LENGTH);
     to_sfn(filename, sfn);
-    for (int i = 0; i < length; i++) {
-        if (name[i] != filename[i]) {
+    for (int i = 0; i < FILENAME_LENGTH; i++) {
+        if (name[i] != sfn[i]) {
             return 0;
         }
     }  
     return 1;
 }
 
-void print_as_text(uint8_t *data, int size)
-{
-    for (int i=0; i < size; i++)
-    {
-        printf("%c", data[i]);
+int check_root_directory(FAT_RUNTIME* rt, char filename[]) {
+    int same_file_ctr = 0, i;
+    for (i = 0; i < FULL_SIZE; i++) {
+        if (rt -> dir_buffer[i].file_size == 0) {
+            break;
+        }
 
-        //Use a standard 80 char width
-        if ( i+1 % 80 == 0) {
-            printf("\n");
+#ifdef DEBUG
+        printf("\n%i\n", check_file_name(rt -> dir_buffer[i].name, filename));
+#endif
+       if (check_file_name(rt -> dir_buffer[i].name, filename) == 1) {
+           same_file_ctr++;
+       }
+    }
+    if (same_file_ctr >= 1) {
+        #ifdef DEBUG
+           printf("\nThere is a duplicate of the given file in the root directory.\n");
+        #endif
+        return -1;
+    }
+    if (i == FULL_SIZE) {
+        #ifdef DEBUG
+           printf("\nThe root directory is full.\n");
+        #endif
+        return -1;
+    }
+    return 0;
+}
+
+int check_free_sectors(FAT_RUNTIME* rt, uint16_t try_sector, uint16_t free_sectors[]) {
+    int ctr = 0;
+    int current_sector = try_sector;
+    do {
+        if (rt -> fat[current_sector] == FE_FREE) {
+            free_sectors[ctr++] = (uint16_t) current_sector;
+        }
+        current_sector = (current_sector + 1) % FATFS_FAT_ENTRY_NUMBER;
+    } while (current_sector != try_sector);
+    if (ctr == 0) {
+    #ifdef DEBUG
+        printf("\nNo free sectors\n");
+    #endif
+        return -1;
+    }
+    return ctr;
+}
+
+void read_and_write_appropriate_size(FAT_RUNTIME* rt, uint16_t free_sector, off_t* size_left, int filedes) {
+    off_t write_size;
+    if (*size_left < S_SECTOR_SIZE) {
+        write_size = *size_left;
+    } else {
+        write_size = S_SECTOR_SIZE;
+    }
+#ifdef DEBUG
+    printf("\n size_left: %i write_size: %i\n", size_left, write_size);
+#endif
+    uint8_t data[write_size];
+    read(filedes, data, (size_t) write_size);
+    off_t offset = (off_t) write_size;
+    lseek(filedes, offset, SEEK_CUR);
+    *size_left -= write_size;
+    write_data_sector(rt -> media_f, free_sector, data);
+}
+
+off_t copy_to_free_sectors(FAT_RUNTIME *rt, uint16_t free_sectors[], int number_of_free_sectors, int filedes, off_t* file_size) {
+    *file_size = lseek(filedes, 0, SEEK_END);
+    off_t size_left = *file_size;
+    lseek(filedes, 0, 0);
+    for (int i = 0; i < number_of_free_sectors; i++) {
+        read_and_write_appropriate_size(rt, free_sectors[i], &size_left, filedes);
+        if (size_left == 0) {
+            rt -> fat[free_sectors[i]] = FE_END;
+            break;
+        }
+        if (i < number_of_free_sectors - 1) {
+            rt -> fat[free_sectors[i]] = free_sectors[i + 1];
+        } else {
+            rt -> fat[free_sectors[i]] = FE_END;
+        }
+    }
+    return *file_size - size_left;
+}
+
+void add_new_DE(FAT_RUNTIME* rt, char filename[], uint16_t try_sector, uint32_t file_size) {
+    FAT_DE new_de;
+    construct_DE(&new_de, filename, 0, try_sector, file_size);
+    for (int i = 0; i < S_SECTOR_SIZE; i++) {
+        if (rt -> dir_buffer[i].file_size == 0) {
+            rt -> dir_buffer[i] = new_de;
+            break;
         }
     }
 }
@@ -44,89 +128,37 @@ void print_as_text(uint8_t *data, int size)
  */
 int import_file(FAT_RUNTIME* rt, char* filename, uint16_t try_sector)
 {
-    int ctr = 0, sector_number = 0;
-    for (int i = 0; i < S_SECTOR_SIZE; i++) {
-        uint8_t* name = rt -> dir_buffer[i].name;
-        //checks whether the directory has 8 or more files
-        if (i >= 8 && rt -> dir_buffer[i].file_size == 0) {
-                #ifdef DEBUG
-                printf("\nThe directory has 8 or more files\n");
-                #endif
-                return -1;
-            }
-        char *sfn = malloc(13);
-        to_sfn(filename, sfn);
-
-        if (check_file_name(name, sfn, 11) == 1) {
-            sector_number = i;
-            ctr++;          
-        }
-     }
-    
-    //checks if the file is found and if there is a duplicate of the given file
-    if (open(filename, O_RDONLY) == -1) {
-        #ifdef DEBUG
-        printf("\nThe file is not found\n");
-        #endif
+    int filedes = open(filename, O_RDONLY);
+    if (filedes == -1) {
         return -1;
     }
 
-    if (ctr > 1) {
-       #ifdef DEBUG
-       printf("\nThere is a duplicate of the given file\n");
-       #endif
-       return -1;   
-    }
-    
-    ctr = 0;
-    int start_sector = try_sector;
-    do {
-        if (rt -> fat[start_sector] == FE_FREE) {
-            ctr++;
-        }
-        start_sector = (start_sector + 1) % FATFS_FAT_ENTRY_NUMBER;
-    } while (start_sector != try_sector); 
-    //checks if there is a free sector
-    if (ctr == 0) {
-        #ifdef DEBUG
-        printf("\nThere is no free sector\n");
-        #endif
+    if (check_root_directory(rt, filename) == -1) {
         return -1;
     }
 
-    int free_sectors[ctr];
-    int written_bytes = 0;
-    int total_size = rt -> dir_buffer[sector_number].file_size;
-    #ifdef DEBUG
-        printf("\nThere is no free sector\n");
-        #endif
-    get_read_sectors(rt, filename, read_sectors);
-    int i;
-    uint8_t* data;
-    for (i = 0; i < number_of_read_sectors - 1; i++) {
-        data = malloc(S_SECTOR_SIZE);
-        //reading from the existing sectors and writing to the free sectors one by one
-        read_data_sector(rt -> media_f, read_sectors[i], data);
-        print_as_text(data, S_SECTOR_SIZE);
-        write_data_sector(rt -> media_f, free_sectors[i], data);
-        written_bytes += S_SECTOR_SIZE;
-        rt -> fat[free_sectors[i]] = free_sectors[i + 1];
+    uint16_t free_sectors[FATFS_FAT_ENTRY_NUMBER];
+    int result = check_free_sectors(rt, try_sector, free_sectors);
+    if (result == -1) {
+        return -1;
     }
-    //reading and writing for the last data sector
-    data = malloc(S_SECTOR_SIZE);
-    read_data_sector(rt -> media_f, read_sectors[i], data);
-    int size = total_size % S_SECTOR_SIZE;
-    written_bytes += size;
-    print_as_text(data, size);
-    write_data_sector(rt -> media_f, free_sectors[i], data);
-    rt -> fat[free_sectors[i]] = FE_END;
+    off_t file_size;
+#ifdef DEBUG
+    print_fat_debug(rt -> fat);
+    printf("\n");
+#endif
+    off_t written_bytes = copy_to_free_sectors(rt, free_sectors, result, filedes, &file_size);
+#ifdef DEBUG
+    print_fat_debug(rt -> fat);
+    printf("\n");
+#endif
 
-    FAT_DE new_de;
-    construct_DE(&new_de, filename, 0, free_sectors[0], total_size);
-    rt -> dir_buffer 
-    return written_bytes;
+    add_new_DE(rt, filename, free_sectors[0], written_bytes);
+
+    write_back_runtime(rt);
+
+    return (int) written_bytes;
 }
-
 
 int main(int argc, char** argv)
 {
