@@ -155,7 +155,7 @@ int import_file(FAT_RUNTIME* rt, char* filename, uint16_t try_sector)
 
     add_new_DE(rt, filename, free_sectors[0], written_bytes);
 
-    write_back_runtime(rt);
+    shutdown_runtime(rt);
 
     return (int) written_bytes;
 }
