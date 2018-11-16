@@ -34,14 +34,33 @@ int check_root_directory(FAT_RUNTIME* rt, char filename[]) {
         if (rt -> dir_buffer[i].file_size == 0) {
             break;
         }
+<<<<<<< HEAD
+=======
+
+#ifdef DEBUG
+        printf("\n%i\n", check_file_name(rt -> dir_buffer[i].name, filename));
+#endif
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
        if (check_file_name(rt -> dir_buffer[i].name, filename) == 1) {
            same_file_ctr++;
        }
     }
     if (same_file_ctr >= 1) {
+<<<<<<< HEAD
         return -1;
     }
     if (i == FULL_SIZE) {
+=======
+        #ifdef DEBUG
+           printf("\nThere is a duplicate of the given file in the root directory.\n");
+        #endif
+        return -1;
+    }
+    if (i == FULL_SIZE) {
+        #ifdef DEBUG
+           printf("\nThe root directory is full.\n");
+        #endif
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
         return -1;
     }
     return 0;
@@ -57,6 +76,12 @@ int check_free_sectors(FAT_RUNTIME* rt, uint16_t try_sector, uint16_t free_secto
         current_sector = (current_sector + 1) % FATFS_FAT_ENTRY_NUMBER;
     } while (current_sector != try_sector);
     if (ctr == 0) {
+<<<<<<< HEAD
+=======
+    #ifdef DEBUG
+        printf("\nNo free sectors\n");
+    #endif
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
         return -1;
     }
     return ctr;
@@ -69,6 +94,12 @@ void read_and_write_appropriate_size(FAT_RUNTIME* rt, uint16_t free_sector, off_
     } else {
         write_size = S_SECTOR_SIZE;
     }
+<<<<<<< HEAD
+=======
+#ifdef DEBUG
+    printf("\n size_left: %i write_size: %i\n", size_left, write_size);
+#endif
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
     uint8_t data[write_size];
     read(filedes, data, (size_t) write_size);
     off_t offset = (off_t) write_size;
@@ -95,6 +126,7 @@ off_t copy_to_free_sectors(FAT_RUNTIME *rt, uint16_t free_sectors[], int number_
     }
     return *file_size - size_left;
 }
+<<<<<<< HEAD
 
 void add_new_DE(FAT_RUNTIME* rt, char filename[], uint16_t try_sector, uint32_t file_size) {
     FAT_DE new_de;
@@ -107,6 +139,20 @@ void add_new_DE(FAT_RUNTIME* rt, char filename[], uint16_t try_sector, uint32_t 
     }
 }
 
+=======
+
+void add_new_DE(FAT_RUNTIME* rt, char filename[], uint16_t try_sector, uint32_t file_size) {
+    FAT_DE new_de;
+    construct_DE(&new_de, filename, 0, try_sector, file_size);
+    for (int i = 0; i < S_SECTOR_SIZE; i++) {
+        if (rt -> dir_buffer[i].file_size == 0) {
+            rt -> dir_buffer[i] = new_de;
+            break;
+        }
+    }
+}
+
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
 /**
  * Import a file content into USFAT based filesystem
  */
@@ -116,6 +162,7 @@ int import_file(FAT_RUNTIME* rt, char* filename, uint16_t try_sector)
     if (filedes == -1) {
         return -1;
     }
+<<<<<<< HEAD
 
     if (check_root_directory(rt, filename) == -1) {
         return -1;
@@ -133,6 +180,33 @@ int import_file(FAT_RUNTIME* rt, char* filename, uint16_t try_sector)
 
     shutdown_runtime(rt);
 
+=======
+
+    if (check_root_directory(rt, filename) == -1) {
+        return -1;
+    }
+
+    uint16_t free_sectors[FATFS_FAT_ENTRY_NUMBER];
+    int result = check_free_sectors(rt, try_sector, free_sectors);
+    if (result == -1) {
+        return -1;
+    }
+    off_t file_size;
+#ifdef DEBUG
+    print_fat_debug(rt -> fat);
+    printf("\n");
+#endif
+    off_t written_bytes = copy_to_free_sectors(rt, free_sectors, result, filedes, &file_size);
+#ifdef DEBUG
+    print_fat_debug(rt -> fat);
+    printf("\n");
+#endif
+
+    add_new_DE(rt, filename, free_sectors[0], written_bytes);
+
+    shutdown_runtime(rt);
+
+>>>>>>> 361d8d2bd4dc58f48687668bba112aec2b1cc598
     return (int) written_bytes;
 }
 
